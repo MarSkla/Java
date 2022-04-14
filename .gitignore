@@ -1,4 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
+**/*.swp
+
+
 ### Maven template
 target/
 pom.xml.tag
