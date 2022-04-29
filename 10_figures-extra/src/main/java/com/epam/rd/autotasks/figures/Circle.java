@@ -1,11 +1,9 @@
 package com.epam.rd.autotasks.figures;
 
-import java.math.BigDecimal;
-
 class Circle extends Figure {
 
-    private Point center;
-    private double radius;
+    private final Point center;
+    private final double radius;
 
     Circle(Point center, double radius) {
 

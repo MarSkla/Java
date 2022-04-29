@@ -2,38 +2,20 @@ package com.epam.rd.autotasks.figures;
 
 import java.util.Arrays;
 
+import static com.epam.rd.autotasks.figures.Convex.convex;
+
 class Quadrilateral extends Figure {
 
-    private Point a;
-    private Point b;
-    private Point c;
-    private Point d;
-
-//    private final double lengthAB; //sides
-//    private final double lengthBC;
-//    private final double lengthCD;
-//    private final double lengthDA;
-//
-//    private final double lengthBD; //diagonals
-//    private final double lengthAC;
+    private final Point a;
+    private final Point b;
+    private final Point c;
+    private final Point d;
 
     public Quadrilateral(Point a, Point b, Point c, Point d) {
-
-//        boolean plainCheck = plainCheck();
-
-//        boolean nullCheck = (a != null && b!= null && c != null && d != null);
-//        boolean plainCheck = plainCheck(a, b, c, d); //wywala - gdzieś bład w
-
-//        boolean colinears = colinearsCheck(a, c, b); //działa ale są nie na wsystkie testy
-
-
-
-        if ((a == null || b == null || c == null || d == null)) {
-            throw new IllegalArgumentException("Missing Point/s"); ////WORKS GREAT
-        } if (intersection(a, b, c, d)) {
-            throw new IllegalArgumentException("Not convex");
-//        }if (colinears) {
-//            throw new IllegalArgumentException("Not a quadrilateral");
+        if (a == null || b == null || c == null || d == null) {
+            throw new IllegalArgumentException("null parameter");
+//        } else if (!convex(a, b, c, d)) {
+//            throw new IllegalArgumentException("wrong coordinates");
         }else {
             this.a = a;
             this.b = b;
@@ -42,62 +24,8 @@ class Quadrilateral extends Figure {
         }
     }
 
-    private boolean intersection(Point a, Point b, Point c, Point d) {
-        Point diagonalAC = new Point(c.getX() - a.getX(), c.getY() - a.getY());
-        Point diagonalBD = new Point(d.getX() - b.getX(), d.getY() - b.getY());
-
-        Point segmentAB = new Point(b.getX() - a.getX(), b.getY() - a.getY());
-        Point segmentBA = new Point(a.getX() - b.getX(), a.getY() - b.getY());
-        Point segmentAD = new Point(d.getX() - a.getX(), d.getY() - a.getY());
-        Point segmentBC = new Point(c.getX() - b.getX(), c.getY() - b.getY());
-
-        double determinantACAB = determinant(diagonalAC, segmentBA);
-        double determinantACAD = determinant(diagonalAC, segmentBC);
-
-        boolean checkACvsBD = determinantACAB * determinantACAD < 0;
-
-        double determinantBDBA = determinant(diagonalBD, segmentAB);
-        double determinantBDBC = determinant(diagonalBD, segmentAD);
-
-        boolean checkBDvsAC = determinantBDBA * determinantBDBC < 0;
-
-        return checkACvsBD && checkBDvsAC;
-
-    }
-
-    public double determinant(Point diagonal, Point vector) {
-        return diagonal.getX() * vector.getY() - diagonal.getY() * vector.getX();
-    }
-
-//    private boolean plainCheck(Point a, Point b, Point c, Point d) { //Sprawdza po parametrach równoległości
-//        Point vectorAB = new Point(b.getX() - a.getX(), b.getY() - a.getY());
-//        Point vectorCD = new Point(d.getX() - c.getX(), d.getY() - c.getY());
-//        Point vectorAD = new Point(d.getX() - a.getX(), d.getY() - a.getY());
-//        Point vectorBC = new Point(c.getX() - b.getX(), c.getY() - b.getY());
-//
-//        double ratioX = vectorAB.getX()/vectorCD.getX();
-//        double ratioY = vectorAB.getY()/vectorCD.getY();
-//        double ratioX2 = vectorAD.getX()/vectorBC.getX();
-//        double ratioY2 = vectorAD.getY()/vectorBC.getY();
-//
-//        return (ratioX == ratioY) && (ratioX2 == ratioY2);
-//    }
-    
-//    private boolean plainCheck(Point a, Point b, Point c, Point d) { // SPRAWDZA PO równych polach przylegających trójątów
-//        double triangleABDarea = area(a, b, d);
-//        double triangleBCDarea = area(b, c, d);
-//        double triangleABCarea = area(a, b, c);
-//        double triangleACDarea = area(a, c, d);
-//
-//        if ((triangleABDarea == triangleBCDarea) && (triangleABCarea == triangleACDarea)) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     @Override
-    public boolean isTheSame(Figure figure) { //WORKS GREAT
+    public boolean isTheSame(Figure figure) {
         if (this.getClass().equals(figure.getClass())) {
 
             Quadrilateral q = (Quadrilateral) figure;
@@ -176,47 +104,4 @@ class Quadrilateral extends Figure {
         double centroidY = (a.getY() + b.getY() + c.getY()) / 3;
         return new Point(centroidX, centroidY);
     }
-
-    boolean colinearsCheck(Point start, Point end, Point check) {
-        return Math.min(start.getX(), end.getX()) <= check.getX()
-                && check.getX() <= Math.max(start.getX(), end.getX())
-                && Math.min(start.getY(), end.getY()) <= check.getY()
-                && check.getY() <= Math.max(start.getY(), end.getY());
-    }
-
-
-
-    boolean checkCoordinates(Point a, Point a1) {
-        double p = 0.01;
-        boolean checkX = Math.abs(a.getX() - a1.getX()) <= p;
-        boolean checkY = Math.abs(a.getY() - a1.getY()) <= p;
-
-        return checkX && checkY;
-    }
-
-//    public double area(Point a, Point b, Point c) { // do plaincheck() po polach
-//
-//        double areaCalculated = halfArea(a, b, c);
-//        return areaCalculated;
-//    }
-
-//    public double halfArea(Point one, Point two, Point three) { // do plaincheck() po polach
-//        double sideA = length(one, two);
-//        double sideB = length(two, three);
-//        double sideC = length(three, one);
-//
-//        double p = (sideA + sideB + sideC) / 2;
-//
-//        return Math.sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
-//
-//    }
-
-//    private double length(Point start, Point end) { // do plaincheck() po polach
-//
-//        double xDifference = end.getX() - start.getX();
-//        double yDifference = end.getY() - start.getY();
-//        return Math.abs(Math.sqrt(Math.pow(xDifference, 2) + Math.pow(yDifference, 2)));
-//    }
-
-
 }

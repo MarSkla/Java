@@ -32,9 +32,8 @@ class Triangle extends Figure {
     }
 
     private double determinant(Point a, Point b, Point c) {
-        double det = (a.getX() * b.getY()) + (b.getX() * c.getY()) + (c.getX() * a.getY())
+        return (a.getX() * b.getY()) + (b.getX() * c.getY()) + (c.getX() * a.getY())
                 - (c.getX() * b.getY()) - (b.getX() * a.getY()) - (a.getX() * c.getY());
-        return det;
     }
 
 }
