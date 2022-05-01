@@ -1,0 +1,21 @@
+ 1249  cd epam/
+ 1250  cd _optional-work/ls
+ 1251  ls
+ 1252  cd _optional-work/
+ 1253  ls
+ 1254  mkdir MavenSampleUse
+ 1255  cd MavenSampleUse/
+ 1256  mvn archetype:generate -DgroupId=net.skladanowski -DartifactId=sampleWeb -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+ 1257  ls
+ 1258  cd sampleWeb/
+ 1259  ls
+ 1260  cd src
+ 1261  ls
+ 1262  cd main
+ 1263  ls
+ 1264  cd webapp/
+ 1265  ls
+ 1266  index.jsp
+ 1267  firefox index.jsp
+ 1268  cd ~/epam/_optional-work/MavenSampleUse/
+ 1269  history > commandsUsed.txt
