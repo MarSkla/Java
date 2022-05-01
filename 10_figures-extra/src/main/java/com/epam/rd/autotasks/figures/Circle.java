@@ -15,14 +15,14 @@ class Circle extends Figure {
         }
     }
 
-    public double getCenterX() {
+    private double getCenterX() {
         return this.center.getX();
     }
-    public double getCenterY() {
+    private double getCenterY() {
         return this.center.getY();
     }
 
-    public double getRadius() {
+    private double getRadius() {
         return this.radius;
     }
 

@@ -11,10 +11,8 @@ public class Main {
         Point c = new Point(11,11);
         Point d = new Point(19,2);
 
-        boolean convex = checkConvex(a, b, c)
-                && checkConvex(b, c ,d)
-                && checkConvex(c, d, a)
-                && checkConvex(d, a, b);
+        int convex = Math.abs(checkConvex(a, b, c) + checkConvex(b, c ,d)
+                + checkConvex(c, d, a) + checkConvex(d, a, b));
 
         System.out.println();
         System.out.println("checkConvex(a, b, c): " + checkConvex(a, b, c));

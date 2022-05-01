@@ -12,10 +12,8 @@ class Quadrilateral extends Figure {
     private final Point d;
 
     public Quadrilateral(Point a, Point b, Point c, Point d) {
-        if (a == null || b == null || c == null || d == null) {
+        if ((a == null || b == null || c == null || d == null) || (convex(a, b, c, d) != 4)) {
             throw new IllegalArgumentException("null parameter");
-//        } else if (!convex(a, b, c, d)) {
-//            throw new IllegalArgumentException("wrong coordinates");
         }else {
             this.a = a;
             this.b = b;
@@ -49,7 +47,7 @@ class Quadrilateral extends Figure {
         }
     }
 
-    boolean checkElements(double[] a, double[] b) {
+    private boolean checkElements(double[] a, double[] b) {
 
         int equals = 0;
         double p = 0.01;
@@ -59,7 +57,6 @@ class Quadrilateral extends Figure {
                 equals++;
             }
         }
-
         return equals == 4;
     }
 
@@ -99,7 +96,7 @@ class Quadrilateral extends Figure {
         }
     }
 
-    public Point centroidTriangle(Point a, Point b, Point c) {
+    private Point centroidTriangle(Point a, Point b, Point c) {
         double centroidX = (a.getX() + b.getX() + c.getX()) / 3;
         double centroidY = (a.getY() + b.getY() + c.getY()) / 3;
         return new Point(centroidX, centroidY);
